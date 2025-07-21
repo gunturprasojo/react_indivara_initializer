@@ -1,0 +1,93 @@
+#!/usr/bin/env ruby
+
+require_relative 'react_example_base_api'
+require_relative 'react_example_containers'
+require_relative 'react_example_hooks'
+require_relative 'react_example_pages'
+require_relative 'react_example_paths'
+require_relative 'react_example_routes'
+require_relative 'react_example_services'
+require_relative 'react_example_types'
+require_relative 'react_example_utils'
+require_relative 'react_example_store'
+require_relative 'react_config_vite'
+require_relative 'react_config_prettier'
+require_relative 'react_config_eslint'
+require_relative 'react_config_env'
+
+print "Enter Project Name: "
+projectName = gets.chomp
+
+if projectName.length > 1
+	createProject = "npm create vite@latest " + projectName + " -- --template react-ts"
+	
+  createPackages = 	
+    "&& cd " + projectName + 
+		"&& touch sonar.properties " +
+		"&& npm install @reduxjs/toolkit react-redux react-dom react-hook-form react-router tailwindcss zod "
+
+	createStructureComponents = 
+    "&& cd src " +
+		"&& mkdir components " +
+    "&& mkdir constants " +
+    "&& cd constants " +
+    "&& mkdir enums " +
+    "&& mkdir items " +
+    "&& mkdir schemas " +
+    "&& cd .. " +
+    "&& mkdir containers " +
+    "&& mkdir hooks " +
+    "&& mkdir pages " +
+    "&& mkdir routes " +
+    "&& mkdir services " +
+    "&& mkdir stores " +
+    "&& mkdir styles " +
+    "&& mkdir types && cd types && mkdir responses && mkdir requests && mkdir parameters && cd .. " +
+    "&& mkdir utils "
+  
+
+	createStructure = "cd " + projectName + createStructureComponents
+	
+	# createStructureHooks = "&& cd hooks" + createInitialHooks
+
+  createExampleAPI = create_example_base_api
+  createExampleContainers = create_example_containers
+  createExampleHooks = create_example_hooks
+  createExamplePages = create_example_pages
+  createExamplePaths = create_example_paths
+  createExampleRoutes = create_example_routes
+  createExampleServices = create_example_services
+  createExampleTypes = create_example_types
+  createExampleUtils = create_example_utils
+  createExampleStore = create_example_store
+  createConfigVite = create_config_vite
+  createConfigEnv = create_config_env
+  createConfigEslint = create_config_eslint
+
+  createConfigPrettier = create_config_prettier
+  move_prettier_config = "&& mv .prettierrc #{projectName}/.prettierrc"
+	exec(
+	createProject +
+  createPackages +
+	createStructure +
+  createExampleAPI +
+  createExampleContainers +
+  createExampleHooks +
+  createExamplePages +
+  createExamplePaths +
+  createExampleRoutes +
+  createExampleServices +
+  createExampleTypes + #error here
+  createExampleUtils + 
+  createExampleStore + 
+  " cd ..  && ls && " +
+  createConfigVite +
+  createConfigEnv +
+  # createConfigPrettier +
+  createConfigEslint + 
+   "cd .. " +
+  move_prettier_config
+	)
+else
+	puts "Please enter project name!"
+end
