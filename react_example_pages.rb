@@ -3,11 +3,10 @@
 def create_example_pages
   paths_name = "index.tsx"
   example_pages_initializer = <<~TYPESCRIPT
-    import { ExamplePageHooksProps } from '@/hooks/example/useExamplePageHooks';
+    import { useExamplePageHooks } from '@/hooks/example/useExamplePageHooks';
 
-    const ExamplePage = (hooks: ExamplePageHooksProps) => {
-      const controller = hooks.controller;
-      const data = hooks.data;
+    export const ExamplePage = () => {
+      const {controller, data} = useExamplePageHooks();
 
       return (
         <div></div>

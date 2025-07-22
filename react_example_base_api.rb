@@ -11,8 +11,8 @@ def create_example_base_api
       FetchBaseQueryError,
     } from '@reduxjs/toolkit/query/react';
 
-    export const API_VERSION = '/v2/data';
-    export const API_PREFIX = 'put url here';
+    export const API_VERSION = '/v1';
+    export const API_PREFIX = import.meta.env.VITE_API_BASE_URL;
 
     const baseQuery = fetchBaseQuery({
       baseUrl: API_PREFIX,

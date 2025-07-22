@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require_relative 'react_example_base_api'
-require_relative 'react_example_containers'
 require_relative 'react_example_hooks'
 require_relative 'react_example_pages'
 require_relative 'react_example_paths'
@@ -12,8 +11,11 @@ require_relative 'react_example_utils'
 require_relative 'react_example_store'
 require_relative 'react_config_vite'
 require_relative 'react_config_prettier'
+require_relative 'react_config_css'
+require_relative 'react_config_main'
 require_relative 'react_config_eslint'
 require_relative 'react_config_env'
+require_relative 'react_config_tsconfig'
 
 print "Enter Project Name: "
 projectName = gets.chomp
@@ -24,7 +26,7 @@ if projectName.length > 1
   createPackages = 	
     "&& cd " + projectName + 
 		"&& touch sonar.properties " +
-		"&& npm install @reduxjs/toolkit react-redux react-dom react-hook-form react-router tailwindcss zod "
+		"&& npm install @reduxjs/toolkit @tailwindcss/vite @types/node @types/react @types/react-dom @vitejs/plugin-react-swc react-redux react-dom react-hook-form react-router tailwind zod  "
 
 	createStructureComponents = 
     "&& cd src " +
@@ -35,7 +37,6 @@ if projectName.length > 1
     "&& mkdir items " +
     "&& mkdir schemas " +
     "&& cd .. " +
-    "&& mkdir containers " +
     "&& mkdir hooks " +
     "&& mkdir pages " +
     "&& mkdir routes " +
@@ -47,11 +48,8 @@ if projectName.length > 1
   
 
 	createStructure = "cd " + projectName + createStructureComponents
-	
-	# createStructureHooks = "&& cd hooks" + createInitialHooks
 
   createExampleAPI = create_example_base_api
-  createExampleContainers = create_example_containers
   createExampleHooks = create_example_hooks
   createExamplePages = create_example_pages
   createExamplePaths = create_example_paths
@@ -63,6 +61,9 @@ if projectName.length > 1
   createConfigVite = create_config_vite
   createConfigEnv = create_config_env
   createConfigEslint = create_config_eslint
+  createConfigCSS = create_config_css
+  createConfigMain = create_config_main
+  createConfigTSConfig = create_config_tsconfig
 
   createConfigPrettier = create_config_prettier
   move_prettier_config = "&& mv .prettierrc #{projectName}/.prettierrc"
@@ -71,7 +72,6 @@ if projectName.length > 1
   createPackages +
 	createStructure +
   createExampleAPI +
-  createExampleContainers +
   createExampleHooks +
   createExamplePages +
   createExamplePaths +
@@ -80,10 +80,12 @@ if projectName.length > 1
   createExampleTypes + #error here
   createExampleUtils + 
   createExampleStore + 
-  " cd ..  && ls && " +
+  createConfigCSS + 
+  createConfigMain +
+  " cd .. && " +
   createConfigVite +
   createConfigEnv +
-  # createConfigPrettier +
+  createConfigTSConfig +
   createConfigEslint + 
    "cd .. " +
   move_prettier_config

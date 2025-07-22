@@ -5,6 +5,7 @@ def create_example_services
   example_service_initializer = <<~TYPESCRIPT
     import { API_PREFIX, baseApi } from '@/services/baseApi';
     import { ExampleParameter } from '@/types/parameters/exampleParameter';
+    import { ExampleRequest } from '@/types/requests/exampleRequest';
     import { ExampleResponse } from '@/types/responses/exampleResponse';
 
     export const exampleService = baseApi.injectEndpoints({
@@ -14,9 +15,19 @@ def create_example_services
           ExampleParameter
         >({
           query: (params) => ({
-            url: '/path',
+            url: API_PREFIX + '/path',
             method: 'GET',
             params,
+          }),
+        }),
+        postSomething: builder.query<
+          ExampleResponse,
+          ExampleRequest
+        >({
+          query: (requests) => ({
+            url: API_PREFIX + '/path',
+            method: 'POST',
+            body: requests,
           }),
         }),
 
@@ -26,7 +37,10 @@ def create_example_services
     export const {
         useGetSomethingQuery,
         useLazyGetSomethingQuery,
+        usePostSomethingQuery,
+        useLazyPostSomethingQuery,
     } = exampleService;
+
 
   TYPESCRIPT
 

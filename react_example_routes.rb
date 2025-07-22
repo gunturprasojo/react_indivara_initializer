@@ -6,12 +6,12 @@ def create_example_routes
     import { createBrowserRouter, Navigate } from 'react-router';
 
     import Paths from '@/constants/enums/paths';
-    import { ExampleContainer } from '@/containers/example/exampleContainer';
+    import { ExamplePage } from '@/pages/example/';
 
     export const router = createBrowserRouter([
       {
         path: Paths.EXAMPLE,
-        element: <ExampleContainer />,
+        element: <ExamplePage />,
       },
     ]);
 

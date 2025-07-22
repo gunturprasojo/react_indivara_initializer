@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require_relative 'react_create_page'
+require_relative 'react_create_hooks'
+
+puts '--------------------------------------------------'
+print "Enter Page Name: "
+pageName = gets.chomp
+puts '''
+--------------------------------------------------
+Example Input : doLogin,forgotPassword.
+
+Generator will generate as interface of controller.
+You need to change specific return if needed later.
+
+Enter Function In Controller Presentation (separated with comma) : 
+'''
+functionNames = gets.chomp
+
+if pageName.length > 1
+	
+  page_command = create_page(
+    component_name: pageName
+  )
+
+  hooks_command = create_hooks(
+    component_name: pageName,
+    function_names: functionNames
+  )
+  
+
+	exec(
+    "cd src && " +
+    page_command +
+    hooks_command
+	)
+else
+	puts "Please enter project name!"
+end

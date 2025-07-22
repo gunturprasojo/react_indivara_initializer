@@ -35,11 +35,10 @@ def create_example_store
     export type RootState = ReturnType<typeof store.getState>;
     export type AppDispatch = typeof store.dispatch;
 
-
   TYPESCRIPT
 
   # Build the shell command as a string
   <<~CMD
-    echo "#{example_store_initializer.strip}" > routes/#{paths_name}
+    echo "#{example_store_initializer.strip}" > stores/#{paths_name}
   CMD
 end
