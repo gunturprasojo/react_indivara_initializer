@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: ruby my_script.rb [options]"
+
+  opts.on("-h", "--help", "Show help") do
+    puts '''
+    ------------------------------------------------------------------------
+    Welcome to React Indivara Framework
+    Version : 1.0.0
+
+    1. React Indivara Project
+    example usage :
+    react_indivara --project ewallet
+
+    2. React Indivara Page
+    example usage :
+    react_indivara --page login --function doLogin,register,validateOTP
+
+    ------------------------------------------------------------------------
+    '''
+    puts opts
+    exit
+  end
+
+  opts.on("-h", "--version", "Show Version") do
+    puts "1.0.0"
+    exit
+  end
+
+  opts.on("-PROJECT_NAME", "--project=PROJECT_NAME", "Enter Project name") do |projectName|
+    options[:projectName] = projectName
+  end
+  opts.on("-nPAGE_NAME", "--page=PAGE_NAME", "Enter Page name") do |pageName|
+    options[:pageName] = pageName
+  end
+  opts.on("-nFUNCTION_NAMES", "--function=FUNCTION_NAMES", "Enter Function name") do |functionNames|
+    options[:functionNames] = functionNames
+  end
+end.parse!
+
+if options[:pageName] && options[:functionNames]
+    exec("printf '#{options[:pageName]}\n#{options[:functionNames]}' | react_indivara_page")
+elsif options[:projectName]
+    exec("printf '#{options[:projectName]}' | react_indivara_project")
+else
+  puts "Please Create Pages and Function Properly"
+end
