@@ -1,21 +1,21 @@
 #!/usr/bin/env ruby
 
-require_relative 'react_example_base_api'
-require_relative 'react_example_hooks'
-require_relative 'react_example_pages'
-require_relative 'react_example_paths'
-require_relative 'react_example_routes'
-require_relative 'react_example_services'
-require_relative 'react_example_types'
-require_relative 'react_example_utils'
-require_relative 'react_example_store'
-require_relative 'react_config_vite'
-require_relative 'react_config_prettier'
-require_relative 'react_config_css'
-require_relative 'react_config_main'
-require_relative 'react_config_eslint'
-require_relative 'react_config_env'
-require_relative 'react_config_tsconfig'
+require_relative File.join(__dir__, 'react_example_base_api')
+require_relative File.join(__dir__, 'react_example_hooks')
+require_relative File.join(__dir__, 'react_example_pages')
+require_relative File.join(__dir__, 'react_example_paths')
+require_relative File.join(__dir__, 'react_example_routes')
+require_relative File.join(__dir__, 'react_example_services')
+require_relative File.join(__dir__, 'react_example_types')
+require_relative File.join(__dir__, 'react_example_utils')
+require_relative File.join(__dir__, 'react_example_store')
+require_relative File.join(__dir__, 'react_config_vite')
+require_relative File.join(__dir__, 'react_config_prettier')
+require_relative File.join(__dir__, 'react_config_css')
+require_relative File.join(__dir__, 'react_config_main')
+require_relative File.join(__dir__, 'react_config_eslint')
+require_relative File.join(__dir__, 'react_config_env')
+require_relative File.join(__dir__, 'react_config_tsconfig')
 
 print "Enter Project Name: "
 projectName = gets.chomp

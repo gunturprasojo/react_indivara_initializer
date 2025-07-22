@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require_relative 'react_create_page'
-require_relative 'react_create_hooks'
+require_relative File.join(__dir__, 'react_create_page')
+require_relative File.join(__dir__, 'react_create_hooks')
 
 puts '--------------------------------------------------'
 print "Enter Page Name: "
