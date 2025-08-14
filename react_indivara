@@ -21,6 +21,10 @@ OptionParser.new do |opts|
     example usage :
     react_indivara --page login --function doLogin,register,validateOTP
 
+    3. React Indivara Section
+    example usage :
+    react_indivara --section header --function refresh
+
     ------------------------------------------------------------------------
     '''
     puts opts
@@ -28,7 +32,7 @@ OptionParser.new do |opts|
   end
 
   opts.on("-h", "--version", "Show Version") do
-    puts "1.0.0"
+    puts "1.1.0"
     exit
   end
 
@@ -38,6 +42,9 @@ OptionParser.new do |opts|
   opts.on("-nPAGE_NAME", "--page=PAGE_NAME", "Enter Page name") do |pageName|
     options[:pageName] = pageName
   end
+  opts.on("-nSECTION_NAME", "--section=SECTION_NAME", "Enter Section name") do |sectionName|
+    options[:sectionName] = sectionName
+  end
   opts.on("-nFUNCTION_NAMES", "--function=FUNCTION_NAMES", "Enter Function name") do |functionNames|
     options[:functionNames] = functionNames
   end
@@ -45,6 +52,8 @@ end.parse!
 
 if options[:pageName] && options[:functionNames]
     exec("printf '#{options[:pageName]}\n#{options[:functionNames]}' | react_indivara_page")
+elsif options[:sectionName] && options[:functionNames]
+    exec("printf '#{options[:sectionName]}\n#{options[:functionNames]}' | react_indivara_section")
 elsif options[:projectName]
     exec("printf '#{options[:projectName]}' | react_indivara_project")
 else

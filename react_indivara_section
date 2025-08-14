@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
-require_relative File.join(__dir__, 'react_create_page')
+require_relative File.join(__dir__, 'react_create_section')
 require_relative File.join(__dir__, 'react_create_hooks')
 require_relative File.join(__dir__, 'react_create_hooks_test')
 
 puts '--------------------------------------------------'
-print "Enter Page Name: "
-pageName = gets.chomp
+print "Enter Section Name: "
+sectionName = gets.chomp
 puts '''
 --------------------------------------------------
 Example Input : doLogin,forgotPassword.
@@ -18,31 +18,31 @@ Enter Function In Controller Presentation (separated with comma) :
 '''
 functionNames = gets.chomp
 
-if pageName.length > 1
+if sectionName.length > 1
 	
-  page_command = create_page(
-    component_name: pageName
+  section_command = create_section(
+    component_name: sectionName
   )
 
   hooks_command = create_hooks(
-    component_name: pageName,
+    component_name: sectionName,
     function_names: functionNames,
-    from:'page'
+    from:'section'
   )
 
   test_command = create_hooks_test(
-    component_name: pageName,
+    component_name: sectionName,
     function_names: functionNames,
-    from:'page'
+    from:'section'
   )
   
 
 	exec(
     "cd src && " +
-    page_command +
+    section_command +
     hooks_command +
     test_command
 	)
 else
-	puts "Please enter Page name!"
+	puts "Please enter Section name!"
 end

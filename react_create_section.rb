@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-def create_page(component_name:)
+def create_section(component_name:)
   # Ensure component_name is valid
   raise ArgumentError, "component_name is required" if component_name.nil? || component_name.strip.empty?
 
@@ -9,25 +9,25 @@ def create_page(component_name:)
 
   file_name = "index.tsx"
   directory = component_name.downcase
-  file_path = "pages/#{directory}/#{file_name}"
-  import_path = "@/pages/#{directory}/use#{upper_first_name}PageHooks"
+  file_path = "sections/#{directory}/#{file_name}"
+  import_path = "@/sections/#{directory}/use#{upper_first_name}SectionHooks"
 
   initializer = <<~TYPESCRIPT
-    import { use#{upper_first_name}PageHooks } from '#{import_path}';
+    import { use#{upper_first_name}SectionHooks } from '#{import_path}';
 
-    export const #{upper_first_name}Page = () => {
-      const { controller, data } = use#{upper_first_name}PageHooks();
+    export const #{upper_first_name}Section = () => {
+      const { controller, data } = use#{upper_first_name}SectionHooks();
 
       return (
         <div></div>
       );
     };
 
-    export default #{upper_first_name}Page;
+    export default #{upper_first_name}Section;
   TYPESCRIPT
 
   <<~CMD
-    mkdir -p pages/#{directory} &&
+    mkdir -p sections/#{directory} &&
     echo "#{initializer.strip}" > #{file_path}
   CMD
 end

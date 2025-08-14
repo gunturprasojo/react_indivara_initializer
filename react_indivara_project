@@ -16,6 +16,7 @@ require_relative File.join(__dir__, 'react_config_main')
 require_relative File.join(__dir__, 'react_config_eslint')
 require_relative File.join(__dir__, 'react_config_env')
 require_relative File.join(__dir__, 'react_config_tsconfig')
+require_relative File.join(__dir__, 'react_config_jest')
 
 print "Enter Project Name: "
 projectName = gets.chomp
@@ -26,7 +27,11 @@ if projectName.length > 1
   createPackages = 	
     "&& cd " + projectName + 
 		"&& touch sonar.properties " +
-		"&& npm install @reduxjs/toolkit @tailwindcss/vite @types/node @types/react @types/react-dom @vitejs/plugin-react-swc react-redux react-dom react-hook-form react-router tailwind zod  "
+		"&& npm install @reduxjs/toolkit @tailwindcss/vite @types/node @types/react @types/react-dom @vitejs/plugin-react-swc react-redux react-dom react-hook-form react-router tailwind zod " + 
+    "&& npm install @testing-library/react @testing-library/jest-dom jest " +
+    "&& npm i --save-dev @types/jest " +
+    "&& npm install --save-dev ts-jest @types/jest " + 
+    "&& npm install --save-dev jest-environment-jsdom "
 
 	createStructureComponents = 
     "&& cd src " +
@@ -39,6 +44,7 @@ if projectName.length > 1
     "&& cd .. " +
     "&& mkdir hooks " +
     "&& mkdir pages " +
+    "&& mkdir sections " +
     "&& mkdir routes " +
     "&& mkdir services " +
     "&& mkdir stores " +
@@ -64,6 +70,7 @@ if projectName.length > 1
   createConfigCSS = create_config_css
   createConfigMain = create_config_main
   createConfigTSConfig = create_config_tsconfig
+  createConfigJest = create_config_jest
 
   createConfigPrettier = create_config_prettier
   move_prettier_config = "&& mv .prettierrc #{projectName}/.prettierrc"
@@ -77,7 +84,7 @@ if projectName.length > 1
   createExamplePaths +
   createExampleRoutes +
   createExampleServices +
-  createExampleTypes + #error here
+  createExampleTypes +
   createExampleUtils + 
   createExampleStore + 
   createConfigCSS + 
@@ -85,6 +92,7 @@ if projectName.length > 1
   " cd .. && " +
   createConfigVite +
   createConfigEnv +
+  createConfigJest +
   createConfigTSConfig +
   createConfigEslint + 
    "cd .. " +

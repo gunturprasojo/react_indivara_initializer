@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-def create_hooks(component_name: nil, function_names: nil, from: nil)
+def create_hooks_test(component_name: nil, function_names: nil, from: nil)
   raise ArgumentError, "component_name is required" if component_name.nil? || component_name.strip.empty?
 
   # Format component and file names
@@ -8,25 +8,25 @@ def create_hooks(component_name: nil, function_names: nil, from: nil)
   upper_from = from.split('_').map(&:capitalize).join
   downcase_from = from.downcase
   directory = component_name.downcase
-  file_name = "use#{upper_first_name}#{upper_from}Hooks.tsx"
+  file_name = "use#{upper_first_name}#{upper_from}Hooks.test.tsx"
   file_path = "#{downcase_from}s/#{directory}/#{file_name}"
 
   # Naming
   hook_name = "use#{upper_first_name}#{upper_from}Hooks"
-  interface_prefix = "#{upper_first_name}#{upper_from}Hooks"
 
   # Function names
   function_names_list = function_names&.split(',')&.map(&:strip) || []
 
-  # Interface definitions
-  interface_functions_initializer = function_names_list.map { |name| " #{name}: () => void;" }.join("\n")
-
   # Hook function implementations
   implementation_functions_initializer = function_names_list.map do |name|
     <<~TS.strip
-  const #{name} = () => {
-    // TODO: implement #{name}
-  };
+  it('should be able to call #{name} without errors', () => {
+    const { result } = renderHook(() => #{hook_name}());
+    act(() => {
+      result.current.controller.#{name}();
+    });
+    expect(result.current.data.someData).toBeDefined(); // Just confirming no errors
+  });
     TS
   end.join("\n\n")
 
@@ -35,32 +35,15 @@ def create_hooks(component_name: nil, function_names: nil, from: nil)
 
   # Full hook content
   hook_initializer = <<~TYPESCRIPT
-export interface #{interface_prefix}ControllerProps {
-  #{interface_functions_initializer}
-}
+import { renderHook, act } from '@testing-library/react';
+import { #{hook_name} } from './#{hook_name}';
 
-export interface #{interface_prefix}DataProps {
-  someData: string;
-}
 
-export interface #{interface_prefix}Props {
-  controller: #{interface_prefix}ControllerProps;
-  data: #{interface_prefix}DataProps;
-}
-
-export const #{hook_name} = (): #{interface_prefix}Props => {
+describe('#{hook_name}', () => {
 
   #{implementation_functions_initializer}
 
-  return {
-    controller: {
-      #{export_functions_initializer}
-    },
-    data: {
-      someData: 'someData',
-    },
-  };
-};
+});
   TYPESCRIPT
 
   # Return shell command string
