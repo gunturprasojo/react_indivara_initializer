@@ -11,7 +11,7 @@ OptionParser.new do |opts|
     puts '''
     ------------------------------------------------------------------------
     Welcome to React Indivara Framework
-    Version : 1.0.0
+    Version : 1.1.1
 
     1. React Indivara Project
     example usage :
@@ -32,7 +32,7 @@ OptionParser.new do |opts|
   end
 
   opts.on("-h", "--version", "Show Version") do
-    puts "1.1.0"
+    puts "1.1.1"
     exit
   end
 
