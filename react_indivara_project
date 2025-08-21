@@ -22,16 +22,18 @@ print "Enter Project Name: "
 projectName = gets.chomp
 
 if projectName.length > 1
-	createProject = "npm create vite@latest " + projectName + " -- --template react-ts"
+	createProject = "npm create vite@latest \"#{projectName}\" -- --template react-ts"
 	
-  createPackages = 	
-    "&& cd " + projectName + 
+  createPackages =
+    "&& cd \"#{projectName}\" " + 
 		"&& touch sonar.properties " +
-		"&& npm install @reduxjs/toolkit @tailwindcss/vite @types/node @types/react @types/react-dom @vitejs/plugin-react-swc react-redux react-dom react-hook-form react-router tailwind zod " + 
+    "&& npm install zod " +
+		"&& npm install @reduxjs/toolkit @tailwindcss/vite @types/node @types/react " +
+    "&& npm install @types/react-dom @vitejs/plugin-react-swc react-redux react-dom react-hook-form react-router tailwind zod " +
     "&& npm install @testing-library/react @testing-library/jest-dom jest " +
-    "&& npm i --save-dev @types/jest " +
     "&& npm install --save-dev ts-jest @types/jest " + 
-    "&& npm install --save-dev jest-environment-jsdom "
+    "&& npm install --save-dev jest-environment-jsdom " + 
+    "&& cd .."
 
 	createStructureComponents = 
     "&& cd src " +
@@ -53,7 +55,7 @@ if projectName.length > 1
     "&& mkdir utils "
   
 
-	createStructure = "cd " + projectName + createStructureComponents
+	createStructure = "&& cd " + projectName + createStructureComponents
 
   createExampleAPI = create_example_base_api
   createExampleHooks = create_example_hooks
@@ -73,7 +75,7 @@ if projectName.length > 1
   createConfigJest = create_config_jest
 
   createConfigPrettier = create_config_prettier
-  move_prettier_config = "&& mv .prettierrc #{projectName}/.prettierrc"
+  move_prettier_config = "&& mv .prettierrc \"#{projectName}\"/.prettierrc"
 	exec(
 	createProject +
   createPackages +
